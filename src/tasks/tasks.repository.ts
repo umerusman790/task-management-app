@@ -8,7 +8,7 @@ import { User } from "src/auth/users.entity";
 export class TaskRepository extends Repository<TaskEntity>{
 
     ////// creating Task
-    async creatTask(title:string, description:string, user:User):Promise<TaskEntity>{
+    async creatTask(title:string, description:string, user:User):Promise<TaskEntity[]>{
 
         const task = await this.create({
             title,
@@ -18,7 +18,7 @@ export class TaskRepository extends Repository<TaskEntity>{
         });
 
         await this.save(task);
-        return task;
+        return this.find({user});
     }
 
     ////// filtered task 

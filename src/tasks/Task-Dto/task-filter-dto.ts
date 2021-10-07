@@ -5,8 +5,9 @@ export class filterDto{
     @IsString()
     @IsOptional()
     search: string;
+
     @IsOptional()
-    @IsEnum(TaskStatus)
+    // @IsEnum(TaskStatus)
     status: TaskStatus;
     
 }

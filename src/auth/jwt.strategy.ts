@@ -10,7 +10,7 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
   constructor(@InjectRepository(UserRepository) private repository:UserRepository) {
     super({
       jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
-      ignoreExpiration: false,
+      ignoreExpiration: true,
       secretOrKey: 'area51',
     });
   }

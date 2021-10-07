@@ -19,7 +19,7 @@ export class TasksService {
 
     ///////////  Create Task 
 
-    creatTask(title:string, description:string, user:User):Promise<TaskEntity>{
+    creatTask(title:string, description:string, user:User):Promise<TaskEntity[]>{
        return  this.taskRepo.creatTask(title, description, user);
         
     }
@@ -59,22 +59,23 @@ export class TasksService {
 
     // ////////  update task 
 
-    async updateTask(id:string, body:Partial<TaskEntity>, user:User){
-
+    async updateTask(id:string, body:Partial<TaskEntity>, req){
+        const {user} =req;
         const task = await this.getTaskById(id, user);
        
         Object.assign(task, body)
        
         await this.taskRepo.save(task);
-        return task;
+        
+        return this.taskRepo.find({user});
         
     }
     
     // ///////  deleteTask    
-    async deleteTask(id:string, user:User):Promise<TaskEntity>{
+    async deleteTask(id:string, user:User):Promise<TaskEntity[]>{
         const taskfounds = await this.getTaskById(id, user);
         await this.taskRepo.remove(taskfounds);
-        return taskfounds;
+        return this.taskRepo.find({user});
         
     }
 }

@@ -15,7 +15,7 @@ export class TasksController {
     constructor(private taskService: TasksService){}
 
     @Post()
-    createTask(@Body() body:TaskDto, @Req() req:any):Promise<TaskEntity>{
+    createTask(@Body() body:TaskDto, @Req() req:any):Promise<TaskEntity[]>{
         return this.taskService.creatTask(body.title, body.description, req.user);
     }
 
@@ -35,15 +35,15 @@ export class TasksController {
 
 
     @Patch('/:id')
-    updateTaskById(@Param('id') id:string, @Body() body:UpdateTaskDto, @Request() req:any):Promise<TaskEntity>{
+    updateTaskById(@Param('id') id:string, @Body() body:UpdateTaskDto, @Request() req:any):Promise<TaskEntity[]>{
         
-        return this.taskService.updateTask(id, body, req.user);
+        return this.taskService.updateTask(id, body, req);
     }
 
 
     
     @Delete('/:id')
-    deleteTask(@Param('id') id:string, @Request() req:any):Promise<TaskEntity>{
+    deleteTask(@Param('id') id:string, @Request() req:any):Promise<TaskEntity[]>{
          return this.taskService.deleteTask(id, req.user);
     }
 
